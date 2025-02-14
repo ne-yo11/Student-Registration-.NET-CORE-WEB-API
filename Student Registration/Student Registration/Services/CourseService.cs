@@ -42,5 +42,23 @@ namespace Student_Registration.Services
         {
             return await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == courseCode);
         }
+
+        //Update course details
+        public async Task<Course?> UpdateCourseAsync(Course course)
+        {
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
+
+        //Delete Course Details
+        public async Task DeleteCourseAsync(Course course)
+        {
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+        }
+
+
+
     }
 }

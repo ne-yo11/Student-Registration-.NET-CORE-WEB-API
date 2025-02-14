@@ -17,6 +17,28 @@ namespace Student_Registration.Services
         {
             _context = context;
         }
+        // Generate unique StudentCode
+        public async Task<string> GenerateUniqueStudentCodeAsync()
+        {
+            string year = DateTime.Now.Year.ToString().Substring(2, 2);
+            int attempt = 0;
+            string studentCode;
+
+            do
+            {
+                int studentCount = await _context.Students
+                    .Where(s => s.StudentCode.StartsWith($"SC{year}"))
+                    .CountAsync();
+
+                string studentNumber = (studentCount + 1 + attempt).ToString("D4");
+                studentCode = $"SC{year}-{studentNumber}";
+
+                attempt++;
+            }
+            while (await _context.Students.AnyAsync(s => s.StudentCode == studentCode));
+
+            return studentCode;
+        }
 
         // Register Student
         public async Task<Student?> RegisterStudentAsync(Student student, string courseName, string courseStatus)
@@ -53,29 +75,6 @@ namespace Student_Registration.Services
             return student;
         }
 
-        // Generate unique StudentCode
-        public async Task<string> GenerateUniqueStudentCodeAsync()
-        {
-            string year = DateTime.Now.Year.ToString().Substring(2, 2);
-            int attempt = 0;
-            string studentCode;
-
-            do
-            {
-                int studentCount = await _context.Students
-                    .Where(s => s.StudentCode.StartsWith($"SC{year}"))
-                    .CountAsync();
-
-                string studentNumber = (studentCount + 1 + attempt).ToString("D4");
-                studentCode = $"SC{year}-{studentNumber}";
-
-                attempt++;
-            }
-            while (await _context.Students.AnyAsync(s => s.StudentCode == studentCode));
-
-            return studentCode;
-        }
-
         // Get Student by StudentCode
         public async Task<StudentDTO?> GetStudentByCodeAsync(string studentCode)
         {
@@ -106,6 +105,7 @@ namespace Student_Registration.Services
                 CourseStatus = student.Course?.Status
             };
         }
+
         public async Task<List<StudentDTO>> SearchStudentsAsync(string? name, string? courseCode, int? yearLevel)
         {
             var query = _context.Students
@@ -183,5 +183,73 @@ namespace Student_Registration.Services
                 CourseStatus = student.Course?.Status
             }).ToList();
         }
+
+
+
+        //Update student details
+        public async Task<bool> UpdateStudentInfoAsync(string studentCode, StudentDTO updatedStudentDto)
+        {
+            var existingStudent = await _context.Students
+                .Include(s => s.Course)
+                .FirstOrDefaultAsync(s => s.StudentCode == studentCode);
+
+            if (existingStudent == null)
+                return false; // Student not found
+
+            // Update student details
+            existingStudent.FirstName = updatedStudentDto.FirstName;
+            existingStudent.LastName = updatedStudentDto.LastName;
+            existingStudent.MiddleName = updatedStudentDto.MiddleName;
+            existingStudent.Birthdate = updatedStudentDto.Birthdate;
+            existingStudent.Age = updatedStudentDto.Age;
+            existingStudent.Gender = updatedStudentDto.Gender;
+            existingStudent.Address = updatedStudentDto.Address;
+            existingStudent.Contact = updatedStudentDto.Contact;
+            existingStudent.GuardianName = updatedStudentDto.GuardianName;
+            existingStudent.GuardianAddress = updatedStudentDto.GuardianAddress;
+            existingStudent.GuardianContact = updatedStudentDto.GuardianContact;
+            existingStudent.Hobby = updatedStudentDto.Hobby;
+
+            // Update Course Details if changed
+            if (!string.IsNullOrEmpty(updatedStudentDto.CourseCode))
+            {
+                var course = await _context.Courses
+                    .FirstOrDefaultAsync(c => c.CourseCode == updatedStudentDto.CourseCode);
+
+                if (course == null)
+                {
+                    course = new Course
+                    {
+                        CourseCode = updatedStudentDto.CourseCode,
+                        CourseName = updatedStudentDto.CourseName,
+                        Status = updatedStudentDto.CourseStatus
+                    };
+
+                    _context.Courses.Add(course);
+                    await _context.SaveChangesAsync();
+                }
+
+                existingStudent.Course = course;
+            }
+
+            _context.Students.Update(existingStudent);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        //Delete student details
+        public async Task<bool> DeleteStudentAsync(string studentCode)
+        {
+            var existingStudent = await _context.Students
+                .FirstOrDefaultAsync(s => s.StudentCode == studentCode);
+
+            if (existingStudent == null)
+                return false; // Student not found
+
+            _context.Students.Remove(existingStudent);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

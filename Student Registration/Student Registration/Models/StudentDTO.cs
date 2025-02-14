@@ -31,7 +31,7 @@ namespace Student_Registration.DTOs
     // Custom Date Converter for YYYY-DD-MM format
     public class CustomDateConverter : JsonConverter<DateTime>
     {
-        private readonly string DateFormat = "yyyy-dd-MM"; // Expected format
+        private readonly string DateFormat = "yyyy-dd-MM"; // Expected format sample format 2000-01-12
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

@@ -56,9 +56,44 @@ namespace Student_Registration.Controllers
         {
             var course = await _courseService.GetCourseByCodeAsync(courseCode);
             if (course == null)
-                return NotFound("Course not found.");
+                return NotFound(new { message = "Course not found." });
 
             return Ok(course);
         }
+        [HttpPut("update/{courseCode}")]
+        public async Task<IActionResult> UpdateCourse(string courseCode, [FromBody] CourseDTO courseDto)
+        {
+            if (courseDto == null)
+                return BadRequest("Course data is required.");
+
+            var existingCourse = await _courseService.GetCourseByCodeAsync(courseCode);
+            if (existingCourse == null)
+                return NotFound(new { message = "Course not found." });
+
+            // Update course properties
+            existingCourse.CourseName = courseDto.CourseName;
+            existingCourse.Duration = courseDto.Duration;
+            existingCourse.Department = courseDto.Department;
+            existingCourse.Description = courseDto.Description;
+            existingCourse.Status = courseDto.Status;
+
+            var updatedCourse = await _courseService.UpdateCourseAsync(existingCourse);
+
+            return Ok(updatedCourse);
+        }
+        [HttpDelete("delete/{courseCode}")]
+        public async Task<IActionResult> DeleteCourse(string courseCode)
+        {
+            var course = await _courseService.GetCourseByCodeAsync(courseCode);
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            await _courseService.DeleteCourseAsync(course);
+            return NoContent(); // 204 No Content response
+        }
+
+
+
+
     }
 }

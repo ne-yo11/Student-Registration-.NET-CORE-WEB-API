@@ -43,6 +43,22 @@
   },
   {
     "ContainingType": "Student_Registration.Controllers.CourseController",
+    "Method": "DeleteCourse",
+    "RelativePath": "api/course/delete/{courseCode}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.CourseController",
     "Method": "GetAllCourses",
     "RelativePath": "api/course/list",
     "HttpMethod": "GET",
@@ -62,10 +78,47 @@
     ]
   },
   {
+    "ContainingType": "Student_Registration.Controllers.CourseController",
+    "Method": "UpdateCourse",
+    "RelativePath": "api/course/update/{courseCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "courseDto",
+        "Type": "Student_Registration.Models.CourseDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Student_Registration.Controllers.StudentController",
     "Method": "GetStudentByCode",
     "RelativePath": "api/student/{studentCode}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.StudentController",
+    "Method": "DeleteStudent",
+    "RelativePath": "api/student/delete/{studentCode}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -148,6 +201,27 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.StudentController",
+    "Method": "UpdateStudent",
+    "RelativePath": "api/student/update/{studentCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentCode",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentDto",
+        "Type": "Student_Registration.DTOs.StudentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Student_Registration.Controllers.WeatherForecastController",

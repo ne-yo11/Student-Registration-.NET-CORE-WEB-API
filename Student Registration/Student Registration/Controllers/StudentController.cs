@@ -54,7 +54,7 @@ namespace Student_Registration.Controllers
             var registeredStudent = await _studentService.RegisterStudentAsync(student, studentDto.CourseName, studentDto.CourseStatus);
 
             if (registeredStudent == null)
-                return Conflict(new { message = "Student already exists or invalid course." });
+                return Conflict(new { message = "Student already exists or invalid Course Code." });
 
             return CreatedAtAction(nameof(GetStudentByCode), new { studentCode = registeredStudent.StudentCode }, registeredStudent);
         }
@@ -94,6 +94,34 @@ namespace Student_Registration.Controllers
                 return NotFound(new { message = "No students found matching the criteria." });
 
             return Ok(filteredStudents);
+        }
+
+
+        //Update student details
+        [HttpPut("update/{studentCode}")]
+        public async Task<IActionResult> UpdateStudent(string studentCode, [FromBody] StudentDTO studentDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _studentService.UpdateStudentInfoAsync(studentCode, studentDto);
+            if (!result)
+                return NotFound(new { message = "Student not found" });
+
+            return Ok(new { message = "Student updated successfully" });
+        }
+
+
+        //Delete student details
+        [HttpDelete("delete/{studentCode}")]
+        public async Task<IActionResult> DeleteStudent(string studentCode)
+        {
+            var result = await _studentService.DeleteStudentAsync(studentCode);
+
+            if (!result)
+                return NotFound(new { message = "Student not found" });
+
+            return Ok(new { message = "Student deleted successfully" });
         }
     }
 }

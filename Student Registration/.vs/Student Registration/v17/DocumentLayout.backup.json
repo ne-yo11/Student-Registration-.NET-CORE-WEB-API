@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\models\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\models\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|c:\\users\\devojt\\documents\\student registration system\\student registration\\student registration\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC196A73-7E09-486D-A285-2AC763FB087F}|Student Registration\\Student Registration.csproj|solutionrelative:student registration\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,53 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "StudentService.cs",
-              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Services\\StudentService.cs",
-              "RelativeDocumentMoniker": "Student Registration\\Services\\StudentService.cs",
-              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Services\\StudentService.cs",
-              "RelativeToolTip": "Student Registration\\Services\\StudentService.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAQwIEAAAAjAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Program.cs",
+              "RelativeDocumentMoniker": "Student Registration\\Program.cs",
+              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Program.cs",
+              "RelativeToolTip": "Student Registration\\Program.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwBgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-13T01:12:40.73Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StudentController.cs",
-              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Controllers\\StudentController.cs",
-              "RelativeDocumentMoniker": "Student Registration\\Controllers\\StudentController.cs",
-              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Controllers\\StudentController.cs",
-              "RelativeToolTip": "Student Registration\\Controllers\\StudentController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAwwF8AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-13T01:12:03.733Z",
+              "WhenOpened": "2025-02-14T07:36:32.552Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "StudentDTO.cs",
-              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Models\\StudentDTO.cs",
-              "RelativeDocumentMoniker": "Student Registration\\Models\\StudentDTO.cs",
-              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Models\\StudentDTO.cs",
-              "RelativeToolTip": "Student Registration\\Models\\StudentDTO.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwDEAAAABAAAAAAAAAA==",
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Services\\CourseService.cs",
+              "RelativeDocumentMoniker": "Student Registration\\Services\\CourseService.cs",
+              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Services\\CourseService.cs",
+              "RelativeToolTip": "Student Registration\\Services\\CourseService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAABAwAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T08:58:22.745Z",
+              "WhenOpened": "2025-02-14T06:58:08.187Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Student.cs",
-              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Models\\Student.cs",
-              "RelativeDocumentMoniker": "Student Registration\\Models\\Student.cs",
-              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Models\\Student.cs",
-              "RelativeToolTip": "Student Registration\\Models\\Student.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAkwD0AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "Student Registration\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\DEVOJT\\Documents\\Student Registration System\\Student Registration\\Student Registration\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "Student Registration\\Controllers\\CourseController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAwwDEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-12T08:56:33.277Z",
+              "WhenOpened": "2025-02-14T06:58:02.417Z",
               "EditorCaption": ""
             }
           ]
