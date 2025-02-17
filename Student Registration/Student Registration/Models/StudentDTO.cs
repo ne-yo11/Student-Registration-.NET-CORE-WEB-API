@@ -7,6 +7,7 @@ namespace Student_Registration.DTOs
 {
     public class StudentDTO
     {
+        public string? StudentCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }

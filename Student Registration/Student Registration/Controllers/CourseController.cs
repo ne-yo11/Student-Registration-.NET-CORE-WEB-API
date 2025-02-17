@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Student_Registration.Models;
 using Student_Registration.Services;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Student_Registration.Controllers
 {
+    [Authorize]
     [Route("api/course")]
     [ApiController]
     public class CourseController : ControllerBase

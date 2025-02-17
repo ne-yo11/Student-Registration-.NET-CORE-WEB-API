@@ -166,6 +166,7 @@ namespace Student_Registration.Services
 
             return students.Select(student => new StudentDTO
             {
+                StudentCode = student.StudentCode,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 MiddleName = student.MiddleName,

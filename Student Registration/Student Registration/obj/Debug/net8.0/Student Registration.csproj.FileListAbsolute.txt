@@ -8,7 +8,10 @@ C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Stude
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Student Registration.pdb
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Humanizer.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Microsoft.Build.dll
@@ -74,6 +77,7 @@ C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Stude
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\NuGet.ProjectModel.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\NuGet.Protocol.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\NuGet.Versioning.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\BouncyCastle.Crypto.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll

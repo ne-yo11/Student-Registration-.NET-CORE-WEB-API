@@ -5,9 +5,11 @@ using Student_Registration.DTOs;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Student_Registration.Controllers
 {
+    [Authorize]
     [Route("api/student")]
     [ApiController]
     public class StudentController : ControllerBase
