@@ -1,3 +1,7 @@
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\appsettings.json
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\Student Registration.staticwebassets.endpoints.json
@@ -88,7 +92,6 @@ C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Stude
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Composition.Hosting.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Composition.Runtime.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Composition.TypedParts.dll
-C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\System.Formats.Asn1.dll
@@ -254,12 +257,9 @@ C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Stude
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
-C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\DEVOJT\Documents\Student Registration System\Student Registration\Student Registration\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll

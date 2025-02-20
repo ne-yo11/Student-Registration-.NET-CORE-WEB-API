@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Student_Registration.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/course")]
     [ApiController]
     public class CourseController : ControllerBase

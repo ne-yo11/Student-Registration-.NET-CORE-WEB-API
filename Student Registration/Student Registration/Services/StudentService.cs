@@ -6,6 +6,8 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer;
+using System.Collections.Generic;
 
 namespace Student_Registration.Services
 {
@@ -41,56 +43,60 @@ namespace Student_Registration.Services
         }
 
         // Register Student
-        public async Task<Student?> RegisterStudentAsync(Student student, string courseName, string courseStatus)
+        public async Task<Student?> RegisterStudentAsync(Student student, string courseName, string courseStatus, List<IFormFile>? files)
         {
             student.StudentCode = await GenerateUniqueStudentCodeAsync();
+            student.Birthdate = student.Birthdate.Date;
 
-            // Convert Date to Correct Format for Database
-            student.Birthdate = student.Birthdate.Date; // Keep original DateTime format
-
-            // Assign course if CourseCode is provided
             if (!string.IsNullOrEmpty(student.CourseCode))
             {
                 var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == student.CourseCode);
-
                 if (course == null)
-                {
-                    course = new Course
-                    {
-                        CourseCode = student.CourseCode,
-                        CourseName = courseName,
-                        Status = courseStatus
-                    };
-
-                    _context.Courses.Add(course);
-                    await _context.SaveChangesAsync();
-                }
+                    throw new Exception($"Course with CourseCode '{student.CourseCode}' does not exist.");
 
                 student.Course = course;
+            }
+            else
+            {
+                throw new Exception("CourseCode is required.");
             }
 
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
-            return student;
-        }
+            // FIX: Ensure StudentDocuments is properly initialized
+            if (student.StudentDocuments == null)
+                student.StudentDocuments = new List<StudentDocuments>();
 
-        // Get Student by StudentCode
-        public async Task<StudentDTO?> GetStudentByCodeAsync(string studentCode)
-        {
-            var student = await _context.Students
-                .Include(s => s.Course)
-                .FirstOrDefaultAsync(s => s.StudentCode == studentCode);
+            // Handle File Uploads
+            if (files != null && files.Count > 0)
+            {
+                foreach (var file in files)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await file.CopyToAsync(memoryStream);
+                    var documentData = memoryStream.ToArray();
 
-            if (student == null)
-                return null;
+                    var document = new StudentDocuments
+                    {
+                        StudentCode = student.StudentCode,
+                        FileName = file.FileName,
+                        FileType = file.ContentType,
+                        Data = documentData
+                    };
 
-            return new StudentDTO
+                    student.StudentDocuments.Add(document);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            // Convert documents to DTO format (Base64)
+            return new Student
             {
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 MiddleName = student.MiddleName,
-                Birthdate = student.Birthdate, 
+                Birthdate = student.Birthdate,
                 Age = student.Age,
                 Gender = student.Gender,
                 Address = student.Address,
@@ -98,11 +104,57 @@ namespace Student_Registration.Services
                 GuardianName = student.GuardianName,
                 GuardianAddress = student.GuardianAddress,
                 GuardianContact = student.GuardianContact,
-                Documents = student.Documents,
+                Hobby = student.Hobby,
+                CourseCode = student.CourseCode,
+                Course = student.Course,
+                StudentDocuments = student.StudentDocuments?.Select(doc => new StudentDocuments
+                {
+                    StudentCode = doc.StudentCode,
+                    FileName = doc.FileName,
+                    FileType = doc.FileType,
+                    Data = doc.Data
+                }).ToList()
+            };
+        }
+
+        // Get Student by StudentCode
+        public async Task<StudentDTO?> GetStudentByCodeAsync(string studentCode)
+        {
+            var student = await _context.Students
+                .Include(s => s.Course)
+                .Include(s => s.StudentDocuments) // Include Student Documents
+                .FirstOrDefaultAsync(s => s.StudentCode == studentCode);
+
+            if (student == null)
+                return null;
+
+            return new StudentDTO
+            {
+                StudentCode = student.StudentCode,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                MiddleName = student.MiddleName,
+                Birthdate = student.Birthdate,
+                Age = student.Age,
+                Gender = student.Gender,
+                Address = student.Address,
+                Contact = student.Contact,
+                GuardianName = student.GuardianName,
+                GuardianAddress = student.GuardianAddress,
+                GuardianContact = student.GuardianContact,
                 Hobby = student.Hobby,
                 CourseCode = student.Course?.CourseCode,
                 CourseName = student.Course?.CourseName,
-                CourseStatus = student.Course?.Status
+                CourseStatus = student.Course?.Status,
+
+                // Convert StudentDocuments to a list of document metadata
+                Documents = student.StudentDocuments?
+                    .Select(d => new StudentDocumentDTO
+                    {
+                        FileName = d.FileName,
+                        FileType = d.FileType,
+                        Data = Convert.ToBase64String(d.Data) // Convert binary data to Base64
+                    }).ToList()
             };
         }
 
@@ -157,11 +209,13 @@ namespace Student_Registration.Services
                 CourseStatus = student.Course?.Status
             }).ToList();
         }
+        
         // Get all students
         public async Task<List<StudentDTO>> GetAllStudentsAsync()
         {
             var students = await _context.Students
                 .Include(s => s.Course) // Include related course data
+                .Include(s => s.StudentDocuments)
                 .ToListAsync();
 
             return students.Select(student => new StudentDTO
@@ -181,7 +235,17 @@ namespace Student_Registration.Services
                 Hobby = student.Hobby,
                 CourseCode = student.Course?.CourseCode,
                 CourseName = student.Course?.CourseName,
-                CourseStatus = student.Course?.Status
+                CourseStatus = student.Course?.Status,
+
+                Documents = student.StudentDocuments != null
+            ? student.StudentDocuments.Select(d => new StudentDocumentDTO
+            {
+                FileName = d.FileName,
+                FileType = d.FileType,
+                Data = Convert.ToBase64String(d.Data) // Convert binary data to Base64
+            }).ToList()
+            : new List<StudentDocumentDTO>() // Return an empty list if no documents exist
+
             }).ToList();
         }
 

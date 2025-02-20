@@ -34,13 +34,16 @@ namespace Student_Registration.Services
         // Get all courses
         public async Task<List<Course>> GetAllCoursesAsync()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses
+                .Where(c => !c.isdeleted) // Only fetch active courses
+                .ToListAsync();
         }
 
         // Get a course by CourseCode
         public async Task<Course?> GetCourseByCodeAsync(string courseCode)
         {
-            return await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == courseCode);
+            return await _context.Courses
+                .FirstOrDefaultAsync(c => c.CourseCode == courseCode && !c.isdeleted);
         }
 
         //Update course details
@@ -51,6 +54,22 @@ namespace Student_Registration.Services
             return course;
         }
 
+        //delete course (update account status)
+        public async Task<Course?> SoftDeleteCourseAsync(string courseCode)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == courseCode);
+            if (course == null)
+            {
+                return null; // Course not found
+            }
+
+            course.isdeleted = true;
+            course.whendeleted = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store timestamp
+
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
         //Delete Course Details
         public async Task DeleteCourseAsync(Course course)
         {

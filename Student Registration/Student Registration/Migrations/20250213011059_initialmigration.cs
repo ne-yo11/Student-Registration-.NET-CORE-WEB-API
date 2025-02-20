@@ -48,7 +48,7 @@ namespace Student_Registration.Migrations
                     StudentCode = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    MiddleName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),

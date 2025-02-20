@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using Student_Registration.Models;
 
-namespace Student_Registration.DTOs
+namespace Student_Registration.Models
 {
-    public class StudentDTO
+    public class StudentRegisterDTO
     {
-        [BindNever]
-        public string? StudentCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
         [JsonConverter(typeof(CustomDateConverter))]
         public DateTime Birthdate { get; set; } // Uses YYYY-DD-MM format
@@ -28,28 +25,11 @@ namespace Student_Registration.DTOs
         public string GuardianContact { get; set; }
         public string Hobby { get; set; }
 
-        public List<StudentDocumentDTO>? Documents { get; set; }
+        [FromForm]
+        public List<IFormFile>? Documents { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string CourseStatus { get; set; }
-    }
-
-    // DTO for documents
-    public class StudentDocumentDTO
-    {
-        public string FileName { get; set; }
-        public string FileType { get; set; }
-        public string Data { get; set; } // Convert byte[] to Base64
-
-        public static StudentDocumentDTO FromEntity(StudentDocuments doc)
-        {
-            return new StudentDocumentDTO
-            {
-                FileName = doc.FileName,
-                FileType = doc.FileType,
-                Data = Convert.ToBase64String(doc.Data) // Convert to Base64 for response
-            };
-        }
     }
 
     // Custom Date Converter for YYYY-DD-MM format

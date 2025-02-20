@@ -7,8 +7,8 @@ namespace Student_Registration.Models
     {
         [Key]
         public int Id { get; set; }
-        
-        [StringLength(12)]  // Adjusted for "SC-{YY}-####" format
+
+        [StringLength(12)]
         public string? StudentCode { get; set; }
 
         [Required]
@@ -18,10 +18,9 @@ namespace Student_Registration.Models
         [Required]
         [StringLength(200)]
         public string LastName { get; set; }
-        
 
         [StringLength(200)]
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
         public DateTime Birthdate { get; set; }
         public int Age { get; set; }
@@ -44,16 +43,14 @@ namespace Student_Registration.Models
         [StringLength(15)]
         public string? GuardianContact { get; set; }
 
-        // Foreign Key for Course
         [Required]
         [StringLength(10)]
         public string CourseCode { get; set; }
 
         [ForeignKey("CourseCode")]
-        public virtual Course Course { get; set; }  // Navigation property
+        public virtual Course Course { get; set; }
 
-        // List of Documents (Store file paths or byte arrays based on requirements)
-        public List<byte[]>? Documents { get; set; }
+        public virtual ICollection<StudentDocuments> StudentDocuments { get; set; } = new List<StudentDocuments>();
 
         [StringLength(255)]
         public string? Hobby { get; set; }

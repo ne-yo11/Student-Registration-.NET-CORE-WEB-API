@@ -31,5 +31,8 @@ namespace Student_Registration.Models
         // Navigation Property for Students (One Course can have many Students)
         [JsonIgnore]
         public virtual ICollection<Student> Students { get; set; }
+
+        public bool isdeleted { get; set; } = false;
+        public string? whendeleted { get; set; }
     }
 }

@@ -6,10 +6,11 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Student_Registration.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/student")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -23,12 +24,15 @@ namespace Student_Registration.Controllers
 
         // Register a Student
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterStudent([FromBody] StudentDTO studentDto)
+        public async Task<IActionResult> RegisterStudent([FromForm] StudentRegisterDTO studentDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (studentDto == null)
                 return BadRequest(new { message = "Invalid student data." });
 
-            // Validate and Convert Date
             if (!DateTime.TryParseExact(studentDto.Birthdate.ToString("yyyy-dd-MM"), "yyyy-dd-MM", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime birthDate))
             {
                 return BadRequest(new { message = "Invalid date format. Expected format: YYYY-DD-MM" });
@@ -39,7 +43,7 @@ namespace Student_Registration.Controllers
                 FirstName = studentDto.FirstName,
                 LastName = studentDto.LastName,
                 MiddleName = studentDto.MiddleName,
-                Birthdate = birthDate, 
+                Birthdate = birthDate,
                 Age = studentDto.Age,
                 Gender = studentDto.Gender,
                 Address = studentDto.Address,
@@ -53,12 +57,12 @@ namespace Student_Registration.Controllers
 
             student.StudentCode = await _studentService.GenerateUniqueStudentCodeAsync();
 
-            var registeredStudent = await _studentService.RegisterStudentAsync(student, studentDto.CourseName, studentDto.CourseStatus);
+            var registeredStudent = await _studentService.RegisterStudentAsync(student, studentDto.CourseName, studentDto.CourseStatus, studentDto.Documents);
 
             if (registeredStudent == null)
                 return Conflict(new { message = "Student already exists or invalid Course Code." });
 
-            return CreatedAtAction(nameof(GetStudentByCode), new { studentCode = registeredStudent.StudentCode }, registeredStudent);
+            return CreatedAtAction(nameof(RegisterStudent), new { studentCode = registeredStudent.StudentCode }, registeredStudent);
         }
 
         // Get Student by StudentCode
@@ -76,6 +80,7 @@ namespace Student_Registration.Controllers
         // Retrieve all students
         [HttpGet("list")]
         public async Task<ActionResult<List<StudentDTO>>> GetAllStudents()
+
         {
             var studentList = await _studentService.GetAllStudentsAsync();
 
@@ -84,6 +89,7 @@ namespace Student_Registration.Controllers
 
             return Ok(studentList);
         }
+
         [HttpGet("search")]
         public async Task<ActionResult<List<StudentDTO>>> SearchStudents(
     [FromQuery] string? name,
