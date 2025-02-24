@@ -52,18 +52,29 @@ namespace Student_Registration.Controllers
                 GuardianAddress = studentDto.GuardianAddress,
                 GuardianContact = studentDto.GuardianContact,
                 Hobby = studentDto.Hobby,
-                CourseCode = studentDto.CourseCode
+                CourseCode = studentDto.CourseCode,
+                Status = studentDto.Status,
             };
 
             student.StudentCode = await _studentService.GenerateUniqueStudentCodeAsync();
 
-            var registeredStudent = await _studentService.RegisterStudentAsync(student, studentDto.CourseName, studentDto.CourseStatus, studentDto.Documents);
+            var registeredStudent = await _studentService.RegisterStudentAsync(student, studentDto.CourseName, studentDto.Documents);
 
             if (registeredStudent == null)
                 return Conflict(new { message = "Student already exists or invalid Course Code." });
 
             return CreatedAtAction(nameof(RegisterStudent), new { studentCode = registeredStudent.StudentCode }, registeredStudent);
         }
+
+        //count student enrolled (1st year, 2nd year,3rd year ,4th year
+
+        [HttpGet("count")]
+        public async Task<IActionResult> CountEnrolledStudent()
+        {
+            var studentCount = await _studentService.CountEnrolledStudentsByYearAsync();
+            return Ok(studentCount);
+        }
+
 
         // Get Student by StudentCode
         [HttpGet("{studentCode}")]
@@ -104,7 +115,6 @@ namespace Student_Registration.Controllers
             return Ok(filteredStudents);
         }
 
-
         //Update student details
         [HttpPut("update/{studentCode}")]
         public async Task<IActionResult> UpdateStudent(string studentCode, [FromBody] StudentDTO studentDto)
@@ -131,5 +141,48 @@ namespace Student_Registration.Controllers
 
             return Ok(new { message = "Student deleted successfully" });
         }
+
+        //softdeactive
+        [HttpPut("Softdeactivate/{studentCode}")]
+        public async Task<IActionResult> SoftDeactivateStudent(string studentCode)
+        {
+            var deactivatedstudent = await _studentService.SoftDeactivateStudentAsync(studentCode);
+
+            if (deactivatedstudent == null)
+            {
+                return NotFound(new { message = "Course not found." });
+            }
+
+            return Ok(new
+            {
+                message = "Student soft deactivate successfully.",
+                isdeleted = deactivatedstudent.isdeleted,
+                whendeleted = deactivatedstudent.whendeleted,
+                accountStatus = deactivatedstudent.AccountStatus
+            });
+        }
+
+        //soft reactivating student
+        [HttpPut("Softreactivate/{studentCode}")]
+        public async Task<IActionResult> SoftReactivateStudent(string studentCode)
+        {
+            var reactivatStudent = await _studentService.SoftReactivateStudentAsync(studentCode);
+
+            if (reactivatStudent == null)
+            {
+                return NotFound(new { message = "Course not Found" });
+            }
+
+            return Ok(new
+            {
+                message = "Student Soft Reactivate Successfully.",
+                isdeleted = reactivatStudent.isdeleted,
+                whendeleted = reactivatStudent.whendeleted,
+                whenrestored = reactivatStudent.whenrestored,
+            });
+        }
+
+
+
     }
 }

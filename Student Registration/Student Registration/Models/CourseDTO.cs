@@ -8,5 +8,7 @@
         public string Department { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
+        public bool isdeleted { get; set; } = false;
+        public string? whendeleted { get; set; }
     }
 }

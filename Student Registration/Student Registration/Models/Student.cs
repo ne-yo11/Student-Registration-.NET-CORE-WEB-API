@@ -54,6 +54,14 @@ namespace Student_Registration.Models
 
         [StringLength(255)]
         public string? Hobby { get; set; }
+
+        public bool isdeleted { get; set; } = false;
+        public string? whendeleted { get; set; }
+        public string? whenrestored { get; set; }
+
+        public string? Status { get; set; }
+        public string? AccountStatus { get; set; }
+
     }
 }
 

@@ -43,11 +43,12 @@ namespace Student_Registration.Services
         }
 
         // Register Student
-        public async Task<Student?> RegisterStudentAsync(Student student, string courseName, string courseStatus, List<IFormFile>? files)
+        public async Task<Student?> RegisterStudentAsync(Student student, string courseName, List<IFormFile>? files)
         {
             student.StudentCode = await GenerateUniqueStudentCodeAsync();
             student.Birthdate = student.Birthdate.Date;
 
+            student.AccountStatus = "Active";
             if (!string.IsNullOrEmpty(student.CourseCode))
             {
                 var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == student.CourseCode);
@@ -107,6 +108,8 @@ namespace Student_Registration.Services
                 Hobby = student.Hobby,
                 CourseCode = student.CourseCode,
                 Course = student.Course,
+                Status = student.Status,
+                AccountStatus = student.AccountStatus,
                 StudentDocuments = student.StudentDocuments?.Select(doc => new StudentDocuments
                 {
                     StudentCode = doc.StudentCode,
@@ -145,7 +148,8 @@ namespace Student_Registration.Services
                 Hobby = student.Hobby,
                 CourseCode = student.Course?.CourseCode,
                 CourseName = student.Course?.CourseName,
-                CourseStatus = student.Course?.Status,
+                Status = student.Status,
+                AccountStatus = student.AccountStatus,
 
                 // Convert StudentDocuments to a list of document metadata
                 Documents = student.StudentDocuments?
@@ -157,6 +161,34 @@ namespace Student_Registration.Services
                     }).ToList()
             };
         }
+        public async Task<Dictionary<int, int>> CountEnrolledStudentsByYearAsync()
+        {
+            var students = await _context.Students
+        .Include(s => s.Course)
+        .Where(s => s.Course != null && s.Course.CourseCode != null) // Ensure CourseCode exists
+        .ToListAsync(); // Fetch data first
+
+            var studentCounts = students
+                .Select(s => new
+                {
+                    CourseCode = s.Course.CourseCode,
+                    YearLevel = s.Course.CourseCode.FirstOrDefault(char.IsDigit) // Extract first digit
+                })
+                .Where(s => s.YearLevel != default && "1234".Contains(s.YearLevel)) // Ensure it's 1-4
+                .GroupBy(s => int.Parse(s.YearLevel.ToString()))
+                .ToDictionary(g => g.Key, g => g.Count()); // Count all occurrences
+
+            // Ensure all year levels (1 to 4) are present, default to 0 if missing
+            var result = new Dictionary<int, int> { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 } };
+
+            foreach (var kvp in studentCounts)
+            {
+                result[kvp.Key] = kvp.Value;
+            }
+
+            return result;
+        }
+
 
         public async Task<List<StudentDTO>> SearchStudentsAsync(string? name, string? courseCode, int? yearLevel)
         {
@@ -206,7 +238,8 @@ namespace Student_Registration.Services
                 Hobby = student.Hobby,
                 CourseCode = student.Course?.CourseCode,
                 CourseName = student.Course?.CourseName,
-                CourseStatus = student.Course?.Status
+                Status = student.Status,
+                AccountStatus = student.AccountStatus,
             }).ToList();
         }
         
@@ -235,7 +268,8 @@ namespace Student_Registration.Services
                 Hobby = student.Hobby,
                 CourseCode = student.Course?.CourseCode,
                 CourseName = student.Course?.CourseName,
-                CourseStatus = student.Course?.Status,
+                Status = student.Status,
+                AccountStatus = student.AccountStatus,
 
                 Documents = student.StudentDocuments != null
             ? student.StudentDocuments.Select(d => new StudentDocumentDTO
@@ -248,8 +282,6 @@ namespace Student_Registration.Services
 
             }).ToList();
         }
-
-
 
         //Update student details
         public async Task<bool> UpdateStudentInfoAsync(string studentCode, StudentDTO updatedStudentDto)
@@ -274,6 +306,8 @@ namespace Student_Registration.Services
             existingStudent.GuardianAddress = updatedStudentDto.GuardianAddress;
             existingStudent.GuardianContact = updatedStudentDto.GuardianContact;
             existingStudent.Hobby = updatedStudentDto.Hobby;
+            existingStudent.Status = updatedStudentDto.Status;
+            existingStudent.AccountStatus = updatedStudentDto.AccountStatus;
 
             // Update Course Details if changed
             if (!string.IsNullOrEmpty(updatedStudentDto.CourseCode))
@@ -287,7 +321,6 @@ namespace Student_Registration.Services
                     {
                         CourseCode = updatedStudentDto.CourseCode,
                         CourseName = updatedStudentDto.CourseName,
-                        Status = updatedStudentDto.CourseStatus
                     };
 
                     _context.Courses.Add(course);
@@ -315,6 +348,49 @@ namespace Student_Registration.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        //student softdeactivate 
+        public async Task<Student?> SoftDeactivateStudentAsync(string studentCode)
+        {
+            var student = await _context.Students.FirstOrDefaultAsync(c => c.StudentCode == studentCode);
+            if (student == null)
+            {
+                return null; // Course not found
+            }
+
+            student.isdeleted = true;
+            student.whendeleted = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store timestamp
+            student.AccountStatus = "Inactive";
+
+
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
+            return student;
+        }
+
+        //student soft reactivate
+        public async Task<Student?> SoftReactivateStudentAsync(string studentCode)
+        {
+            var student = await _context.Students.FirstOrDefaultAsync(c => c.StudentCode == studentCode);
+            if (student == null || !student.isdeleted)
+            {
+                return null; // Course not found or not deleted
+            }
+
+            student.isdeleted = false;
+            student.whendeleted = null; // Clear deletion timestamp
+            student.whenrestored = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store timestamp
+            student.AccountStatus = "Active";
+
+
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
+            return student;
+        }
+
+
+
+
 
     }
 }

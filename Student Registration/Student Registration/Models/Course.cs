@@ -34,5 +34,6 @@ namespace Student_Registration.Models
 
         public bool isdeleted { get; set; } = false;
         public string? whendeleted { get; set; }
+        public string? whenrestored { get; set; }
     }
 }

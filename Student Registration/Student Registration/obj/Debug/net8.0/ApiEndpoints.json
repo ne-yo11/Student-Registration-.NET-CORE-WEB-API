@@ -184,6 +184,16 @@
   },
   {
     "ContainingType": "Student_Registration.Controllers.CourseController",
+    "Method": "CountActiveInactiveCourse",
+    "RelativePath": "api/course/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.CourseController",
     "Method": "DeleteCourse",
     "RelativePath": "api/course/delete/{courseCode}",
     "HttpMethod": "DELETE",
@@ -220,6 +230,38 @@
   },
   {
     "ContainingType": "Student_Registration.Controllers.CourseController",
+    "Method": "SoftDeleteCourse",
+    "RelativePath": "api/course/Softdelete/{courseCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.CourseController",
+    "Method": "SoftRestoreCourse",
+    "RelativePath": "api/course/Softrestore/{courseCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.CourseController",
     "Method": "UpdateCourse",
     "RelativePath": "api/course/update/{courseCode}",
     "HttpMethod": "PUT",
@@ -253,6 +295,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.StudentController",
+    "Method": "CountEnrolledStudent",
+    "RelativePath": "api/student/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -360,6 +412,11 @@
         "IsRequired": false
       },
       {
+        "Name": "Status",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "Documents",
         "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
         "IsRequired": false
@@ -371,11 +428,6 @@
       },
       {
         "Name": "CourseName",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "CourseStatus",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -417,6 +469,38 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.StudentController",
+    "Method": "SoftDeactivateStudent",
+    "RelativePath": "api/student/Softdeactivate/{studentCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Student_Registration.Controllers.StudentController",
+    "Method": "SoftReactivateStudent",
+    "RelativePath": "api/student/Softreactivate/{studentCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "studentCode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Student_Registration.Controllers.StudentController",

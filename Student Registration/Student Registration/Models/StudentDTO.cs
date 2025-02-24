@@ -27,11 +27,15 @@ namespace Student_Registration.DTOs
         public string GuardianAddress { get; set; }
         public string GuardianContact { get; set; }
         public string Hobby { get; set; }
+        public string? Status { get; set; }
+        public string? AccountStatus { get; set; }
 
         public List<StudentDocumentDTO>? Documents { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
-        public string CourseStatus { get; set; }
+
+        //public bool isdeleted { get; set; } = false;
+       // public string? whendeleted { get; set; }
     }
 
     // DTO for documents

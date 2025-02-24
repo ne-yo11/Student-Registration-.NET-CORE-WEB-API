@@ -24,12 +24,13 @@ namespace Student_Registration.Models
         public string GuardianAddress { get; set; }
         public string GuardianContact { get; set; }
         public string Hobby { get; set; }
+        public string? Status { get; set; }
+
 
         [FromForm]
         public List<IFormFile>? Documents { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
-        public string CourseStatus { get; set; }
     }
 
     // Custom Date Converter for YYYY-DD-MM format

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Student_Registration.Data;
 
@@ -11,9 +12,11 @@ using Student_Registration.Data;
 namespace Student_Registration.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    partial class StudentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250221020149_student isdeleted")]
+    partial class studentisdeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,9 +83,6 @@ namespace Student_Registration.Migrations
                     b.Property<string>("whendeleted")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("whenrestored")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("CourseCode");
 
                     b.ToTable("Courses");
@@ -95,9 +95,6 @@ namespace Student_Registration.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AccountStatus")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .HasMaxLength(255)
@@ -152,9 +149,6 @@ namespace Student_Registration.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("StudentCode")
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
@@ -163,9 +157,6 @@ namespace Student_Registration.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("whendeleted")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("whenrestored")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

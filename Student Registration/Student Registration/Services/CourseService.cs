@@ -34,9 +34,7 @@ namespace Student_Registration.Services
         // Get all courses
         public async Task<List<Course>> GetAllCoursesAsync()
         {
-            return await _context.Courses
-                .Where(c => !c.isdeleted) // Only fetch active courses
-                .ToListAsync();
+            return await _context.Courses.ToListAsync();// Only fetch active courses
         }
 
         // Get a course by CourseCode
@@ -54,7 +52,7 @@ namespace Student_Registration.Services
             return course;
         }
 
-        //delete course (update account status)
+        //delete course (update account status to Inactive)
         public async Task<Course?> SoftDeleteCourseAsync(string courseCode)
         {
             var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == courseCode);
@@ -65,11 +63,32 @@ namespace Student_Registration.Services
 
             course.isdeleted = true;
             course.whendeleted = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store timestamp
+            course.Status = "Inactive";
 
             _context.Courses.Update(course);
             await _context.SaveChangesAsync();
             return course;
         }
+
+        //restore course(update accont status to Active)
+        public async Task<Course?> SoftRestoreCourseAsync(string courseCode)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseCode == courseCode);
+            if (course == null || !course.isdeleted)
+            {
+                return null; // Course not found or not deleted
+            }
+
+            course.isdeleted = false;
+            course.whendeleted = null; // Clear deletion timestamp
+            course.whenrestored = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"); // Store timestamp
+            course.Status = "Active";
+
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
+
         //Delete Course Details
         public async Task DeleteCourseAsync(Course course)
         {
@@ -77,6 +96,20 @@ namespace Student_Registration.Services
             await _context.SaveChangesAsync();
         }
 
+        //count number of active and inactive courses
+        public async Task<Dictionary<int, int>> CountActiveInactiveCourseAsync()
+        {
+            var activeCount = await _context.Courses.CountAsync(c => c.Status == "Active");
+            var inactiveCount = await _context.Courses.CountAsync(c => c.Status == "Inactive");
+
+            var result = new Dictionary<int, int>
+            {
+                { 1, activeCount },   // Active courses
+                { 0, inactiveCount }  // Inactive courses
+            };
+
+            return result;
+        }
 
 
     }

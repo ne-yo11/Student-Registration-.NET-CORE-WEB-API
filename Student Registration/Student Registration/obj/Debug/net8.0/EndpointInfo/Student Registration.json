@@ -283,6 +283,18 @@
         }
       }
     },
+    "/api/course/count": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/course/list": {
       "get": {
         "tags": [
@@ -401,6 +413,50 @@
         }
       }
     },
+    "/api/course/Softdelete/{courseCode}": {
+      "put": {
+        "tags": [
+          "Course"
+        ],
+        "parameters": [
+          {
+            "name": "courseCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/course/Softrestore/{courseCode}": {
+      "put": {
+        "tags": [
+          "Course"
+        ],
+        "parameters": [
+          {
+            "name": "courseCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/course/delete/{courseCode}": {
       "delete": {
         "tags": [
@@ -472,6 +528,9 @@
                   "Hobby": {
                     "type": "string"
                   },
+                  "Status": {
+                    "type": "string"
+                  },
                   "Documents": {
                     "type": "array",
                     "items": {
@@ -483,9 +542,6 @@
                     "type": "string"
                   },
                   "CourseName": {
-                    "type": "string"
-                  },
-                  "CourseStatus": {
                     "type": "string"
                   }
                 }
@@ -527,6 +583,9 @@
                 "Hobby": {
                   "style": "form"
                 },
+                "Status": {
+                  "style": "form"
+                },
                 "Documents": {
                   "style": "form"
                 },
@@ -535,14 +594,23 @@
                 },
                 "CourseName": {
                   "style": "form"
-                },
-                "CourseStatus": {
-                  "style": "form"
                 }
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/student/count": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -734,6 +802,50 @@
           }
         }
       }
+    },
+    "/api/student/Softdeactivate/{studentCode}": {
+      "put": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "studentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/student/Softreactivate/{studentCode}": {
+      "put": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "studentCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -807,6 +919,10 @@
           "whendeleted": {
             "type": "string",
             "nullable": true
+          },
+          "whenrestored": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -835,6 +951,13 @@
             "nullable": true
           },
           "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "isdeleted": {
+            "type": "boolean"
+          },
+          "whendeleted": {
             "type": "string",
             "nullable": true
           }
@@ -924,6 +1047,14 @@
             "type": "string",
             "nullable": true
           },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountStatus": {
+            "type": "string",
+            "nullable": true
+          },
           "documents": {
             "type": "array",
             "items": {
@@ -936,10 +1067,6 @@
             "nullable": true
           },
           "courseName": {
-            "type": "string",
-            "nullable": true
-          },
-          "courseStatus": {
             "type": "string",
             "nullable": true
           }

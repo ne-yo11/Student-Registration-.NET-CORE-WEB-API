@@ -44,6 +44,15 @@ namespace Student_Registration.Controllers
             return CreatedAtAction(nameof(GetCourseByCode), new { courseCode = createdCourse.CourseCode }, createdCourse);
         }
 
+        //count active/inactive course
+
+        [HttpGet("count")]
+        public async Task<IActionResult> CountActiveInactiveCourse()
+        {
+            var CourseCount = await _courseService.CountActiveInactiveCourseAsync();
+            return Ok(CourseCount);
+        }
+
         // Retrieve all courses
         [HttpGet("list")]
         public async Task<ActionResult<List<Course>>> GetAllCourses()
@@ -62,6 +71,9 @@ namespace Student_Registration.Controllers
 
             return Ok(course);
         }
+
+
+
         [HttpPut("update/{courseCode}")]
         public async Task<IActionResult> UpdateCourse(string courseCode, [FromBody] CourseDTO courseDto)
         {
@@ -83,6 +95,49 @@ namespace Student_Registration.Controllers
 
             return Ok(updatedCourse);
         }
+
+        [HttpPut("Softdelete/{courseCode}")]
+        public async Task<IActionResult> SoftDeleteCourse(string courseCode)
+        {
+            var deletedCourse = await _courseService.SoftDeleteCourseAsync(courseCode);
+
+            if (deletedCourse == null)
+            {
+                return NotFound(new { message = "Course not found." });
+            }
+
+            return Ok(new
+            {
+                message = "Course soft deleted successfully.",
+                isdeleted = deletedCourse.isdeleted,
+                whendeleted = deletedCourse.whendeleted,
+                status = deletedCourse.Status
+            });
+        }
+
+        [HttpPut("Softrestore/{courseCode}")]
+        public async Task<IActionResult> SoftRestoreCourse(string courseCode)
+        {
+            var restoreCourse = await _courseService.SoftRestoreCourseAsync(courseCode);
+
+            if(restoreCourse == null)
+            {
+                return NotFound(new {message = "Course not Found"});
+            }
+
+            return Ok(new
+            {
+                message = "Course Soft Restore Successfully.",
+                isdeleted = restoreCourse.isdeleted,
+                whendeleted = restoreCourse.whendeleted,
+                whenrestored = restoreCourse.whenrestored,
+                status = restoreCourse.Status
+            });
+        }
+
+
+
+
         [HttpDelete("delete/{courseCode}")]
         public async Task<IActionResult> DeleteCourse(string courseCode)
         {
