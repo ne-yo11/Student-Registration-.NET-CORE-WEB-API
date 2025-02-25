@@ -307,7 +307,7 @@ namespace Student_Registration.Services
             existingStudent.GuardianContact = updatedStudentDto.GuardianContact;
             existingStudent.Hobby = updatedStudentDto.Hobby;
             existingStudent.Status = updatedStudentDto.Status;
-            existingStudent.AccountStatus = updatedStudentDto.AccountStatus;
+           // existingStudent.AccountStatus = updatedStudentDto.AccountStatus;
 
             // Update Course Details if changed
             if (!string.IsNullOrEmpty(updatedStudentDto.CourseCode))

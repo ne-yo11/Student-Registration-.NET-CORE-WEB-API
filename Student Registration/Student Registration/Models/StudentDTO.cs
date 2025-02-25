@@ -17,7 +17,7 @@ namespace Student_Registration.DTOs
         public string MiddleName { get; set; }
 
         [JsonConverter(typeof(CustomDateConverter))]
-        public DateTime Birthdate { get; set; } // Uses YYYY-DD-MM format
+        public DateTime Birthdate { get; set; } // Uses YYYY-MM-DD format
 
         public int Age { get; set; }
         public string Gender { get; set; }
@@ -56,10 +56,10 @@ namespace Student_Registration.DTOs
         }
     }
 
-    // Custom Date Converter for YYYY-DD-MM format
+    // Custom Date Converter for YYYY-MM-DD format
     public class CustomDateConverter : JsonConverter<DateTime>
     {
-        private readonly string DateFormat = "yyyy-dd-MM"; // Expected format sample format 2000-01-12
+        private readonly string DateFormat = "yyyy-MM-dd"; // Corrected format
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -72,7 +72,8 @@ namespace Student_Registration.DTOs
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString(DateFormat)); // Serializing as YYYY-DD-MM
+            writer.WriteStringValue(value.ToString(DateFormat)); // Serializing as YYYY-MM-DD
         }
     }
+
 }
