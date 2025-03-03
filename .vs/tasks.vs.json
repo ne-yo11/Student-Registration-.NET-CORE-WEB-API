@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-Student Registration System",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}
